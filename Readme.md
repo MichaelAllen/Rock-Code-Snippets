@@ -23,4 +23,6 @@ Each file should be tagged with one or more tags from each of the categories bel
 
 ## Disclaimer
 
+These are mainly notes I have created for internal use. I am sharing them here in the hope that they may be helpful for someone, but I make no promises that they are error-free.
+
 Never run code you found online, unless you read it and understand what it is doing. That is a great way to have a bad day.

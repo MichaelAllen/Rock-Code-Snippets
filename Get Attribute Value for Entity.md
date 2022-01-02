@@ -1,7 +1,6 @@
 ---
 tags:
     - language/sql
-    - domain/core
     - type/utility
 date created: 2021-01-23 19:16:58
 date modified: 2022-01-01 11:42:13
