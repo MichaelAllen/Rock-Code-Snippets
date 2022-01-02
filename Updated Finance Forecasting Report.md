@@ -5,12 +5,12 @@ tags:
     - domain/finance
     - type/reporting
 date created: 2020-12-04 23:24:00
-date modified: 2022-01-01 18:23:22
+date modified: 2022-01-02 15:53:50
 ---
 
 # Updated Finance Forecasting Report
 
-> Original idea from Kevin Rutledge - https://community.rockrms.com/recipes/27/projected-year-end-giving
+> Original idea from Kevin Rutledge - https://community.rockrms.com/recipes/27/projected-year-end-giving  
 > Rewritten by Michael Allen to add support for fiscal years, and fix a few display bugs
 
 This is a fairly complicated report. Read Kevin's recipe (linked above) for a more thorough explanation.
