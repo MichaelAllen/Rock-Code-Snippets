@@ -1,7 +1,7 @@
 ---
 tags: 
 date created: 2022-01-01 12:17:02
-date modified: 2022-01-01 20:28:17
+date modified: 2022-01-01 21:48:05
 ---
 
 # Readme
@@ -23,4 +23,4 @@ Each file should be tagged with one or more tags from each of the categories bel
 
 ## Disclaimer
 
-Never run code you found online unless you read it and understand what it is doing. That is a great way to have a bad day.
+Never run code you found online, unless you read it and understand what it is doing. That is a great way to have a bad day.
