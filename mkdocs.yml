@@ -1,0 +1,36 @@
+site_name: Rock Code Snippets
+site_author: Michael Allen
+docs_dir: Rock
+theme:
+  name: material
+  custom_dir: Theme
+  features:
+    - navigation.instant
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: blue
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+markdown_extensions:
+  - meta
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+plugins:
+  - roamlinks
+  - search
+  - simple-tags

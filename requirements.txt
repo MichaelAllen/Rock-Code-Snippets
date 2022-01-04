@@ -1,0 +1,4 @@
+mkdocs==1.2.3
+mkdocs-material==8.1.4
+mkdocs-roamlinks-plugin==0.1.3
+mkdocs-simple-tags @ git+https://github.com/taivo/mkdocs-simple-tags.git@12dbd967ed595a7977c469a4bfb3dd7b4514ae3f

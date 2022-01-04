@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if page.meta.tags is defined and page.meta.tags|length > 0%}
+    <div class="admonition info">
+      <p class="admonition-title">Tags</p>
+      <ul>
+      {% for tag in page.meta.tags %}
+        <li><a href="/tags#{{ tag | replace("/","") }}">{{ tag }}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  {{ super() }}
+{% endblock %}
