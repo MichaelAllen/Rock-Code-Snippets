@@ -12,4 +12,5 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install -r requirements.txt
+      - run: mv Rock/README.md Rock/index.md
       - run: mkdocs gh-deploy -v --force
