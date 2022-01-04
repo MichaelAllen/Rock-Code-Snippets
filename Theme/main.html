@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% if page.meta.tags is defined and page.meta.tags|length > 0%}
+  {% if page.meta.tags is sequence and page.meta.tags|length > 0 %}
     <div class="admonition info">
       <p class="admonition-title">Tags</p>
       <ul>
@@ -10,6 +10,6 @@
       {% endfor %}
       </ul>
     </div>
-  {% endif %}
+  {% endif %}{
   {{ super() }}
 {% endblock %}
