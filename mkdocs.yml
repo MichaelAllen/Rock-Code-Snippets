@@ -33,4 +33,5 @@ markdown_extensions:
 plugins:
   - roamlinks
   - search
-  - simple-tags
+  - simple-tags:
+      tags_template: Theme/tags.md
