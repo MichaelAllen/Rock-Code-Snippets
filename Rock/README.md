@@ -1,7 +1,7 @@
 ---
 tags: 
 date created: 2022-01-01 12:17:02
-date modified: 2022-01-04 10:42:43
+date modified: 2022-01-04 14:29:40
 ---
 
 # About These Notes
@@ -27,10 +27,10 @@ Each file should be tagged with one or more tags from each of the categories bel
     - **utility** - Make a task easier
 - **topic/??** - What are some topics that the snippet relates to? Primarily to help with searching.
 
-If you want to browse by tags, you can visit the [[Tags|Tag Index]]. You can also use tags in the search box above.
+If you want to browse by tags, you can visit the [[Tags]] page. You can also use tags in the search box above.
 
 ## Disclaimer
 
 Never run code you found online, unless you read it and understand what it is doing. That is a great way to have a bad day.
 
-This site is auto synced from [Obsidian](https://obsidian.md) on my computer to [Github](https://github.com/MichaelAllen/Rock-Code-Snippets). It is then automatically compiled into a website using [MkDocs](https://www.mkdocs.org). 
+This site is auto synced from [Obsidian](https://obsidian.md) on my computer to [Github](https://github.com/MichaelAllen/Rock-Code-Snippets). It is then automatically compiled into a website using [MkDocs](https://www.mkdocs.org).

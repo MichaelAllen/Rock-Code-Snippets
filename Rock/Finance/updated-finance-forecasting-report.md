@@ -4,12 +4,12 @@ tags:
     - language/lava
     - type/reporting
 date created: 2020-12-04 23:24:00
-date modified: 2022-01-02 19:18:33
+date modified: 2022-01-04 14:31:45
 ---
 
 # Updated Finance Forecasting Report
 
-> Original idea from Kevin Rutledge - [Recipee Link](https://community.rockrms.com/recipes/27/projected-year-end-giving)  
+> Original idea from Kevin Rutledge - [Recipe Link](https://community.rockrms.com/recipes/27/projected-year-end-giving)  
 > Rewritten by Michael Allen to add support for fiscal years, and to fix a few display bugs
 
 This is a fairly complicated report. Read Kevin's recipe (linked above) for a more thorough explanation.
