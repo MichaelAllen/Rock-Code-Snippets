@@ -1,7 +1,7 @@
 ---
 tags: 
 date created: 2022-01-01 12:17:02
-date modified: 2022-01-04 14:29:40
+date modified: 2022-01-04 14:33:20
 ---
 
 # About These Notes
@@ -27,7 +27,7 @@ Each file should be tagged with one or more tags from each of the categories bel
     - **utility** - Make a task easier
 - **topic/??** - What are some topics that the snippet relates to? Primarily to help with searching.
 
-If you want to browse by tags, you can visit the [[Tags]] page. You can also use tags in the search box above.
+If you want to browse by tags, you can visit the [Tags Index](/tags). You can also use tags in the search box above.
 
 ## Disclaimer
 
