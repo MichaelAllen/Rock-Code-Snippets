@@ -4,7 +4,7 @@ date created: 2022-01-01 12:17:02
 date modified: 2022-01-04 10:42:43
 ---
 
-# Rock Code Snippets
+# About These Notes
 
 These are mainly notes I have created for internal use. I am sharing them here in the hope that they may be helpful for someone, but I make no promises that they are error-free.
 
