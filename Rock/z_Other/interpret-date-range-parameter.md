@@ -1,8 +1,8 @@
 ---
 tags:
-    - language/lava
-    - language/sql
-    - type/utility
+  - language/lava
+  - language/sql
+  - type/utility
 date created: 2021-11-12 16:14:08
 date modified: 2022-01-01 11:40:56
 ---
@@ -31,7 +31,7 @@ date modified: 2022-01-01 11:40:56
             {% assign end = results | Remove:'"' | Split:' to ' | Index:1 | Date:'yyyy-MM-ddTHH:mm:ss' %}
         {% endwebrequest %}
     {% endif %}
-    
+
     SELECT '{{ start }}' AS 'Start', '{{ end }}' AS 'End'
 {% endif %}
 ```
@@ -47,9 +47,9 @@ date modified: 2022-01-01 11:40:56
         var range = Rock.Web.UI.Controls.SlidingDateRangePicker.CalculateDateRangeFromDelimitedValues( "{{ filter }}" );
         return string.Format( "{0:yyyy-MM-ddTHH:mm:ss},{1:yyyy-MM-ddTHH:mm:ss}", range.Start, range.End );
     {% endexecute %}{% endcapture %}
-    {% assign start = result | Split:',' | Index:0 }
-    {% assign end = result | Split:',' | Index:1 }
-    
+    {% assign start = result | Split:',' | Index:0 %}
+    {% assign end = result | Split:',' | Index:1 %}
+
     SELECT '{{ start }}' AS 'Start', '{{ end }}' AS 'End'
 {% endif %}
 ```
