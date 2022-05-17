@@ -14,7 +14,7 @@ If you have a question about any of these files, feel free to reach out to me on
 
 ### Folder Structure
 
-Each snippet is in a folder for the domain of Rock that it relates to. (Similar to the structure used here [here](https://github.com/SparkDevNetwork/Rock/tree/develop/RockWeb/Blocks))
+Each snippet is in a folder for the domain of Rock that it relates to. (Similar to the structure used [here](https://github.com/SparkDevNetwork/Rock/tree/develop/RockWeb/Blocks))
 
 ### Tag Types
 
