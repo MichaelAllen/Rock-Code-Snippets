@@ -40,7 +40,7 @@ This query will list all of the attributes of the specified block.
 ```sql
 DECLARE @BlockId int = 10; --Replace with the Id of the block that has the corrupted attribute
 
-DECLARE @blockEntityTypeId int = ( SELECT [Id] FROM [EntityType] WHERE [Name] = 'Rock.Model.Block' );
+DECLARE @BlockEntityTypeId int = ( SELECT [Id] FROM [EntityType] WHERE [Name] = 'Rock.Model.Block' );
 SELECT
   av.[Id] 'AttributeValueId'
   ,a.[Name]
@@ -49,7 +49,7 @@ FROM
   [Attribute] a
   JOIN [AttributeValue] av ON a.[Id] = av.[AttributeId]
 WHERE
-  a.[EntityTypeId] = @blockEntityTypeId
+  a.[EntityTypeId] = @BlockEntityTypeId
   AND av.[EntityId] = @BlockId
 ```
 
@@ -69,7 +69,7 @@ SET [Value] = '{% comment %}{% raw %}' + [Value] + '{% endraw %}{% endcomment %}
 WHERE [Id] = @AttributeValueId
 ```
 
-**Option 2** This query will delete the corrupted attribute; causing Rock to set it back to its default value..
+**Option 2** This query will delete the corrupted attribute; causing Rock to set it back to its default value.
 
 ```sql
 DECLARE @AttributeValueId int = 123; --Replace with the Id of the corrupted attribute
