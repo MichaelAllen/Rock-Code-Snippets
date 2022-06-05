@@ -44,8 +44,8 @@ Display the `SelectedPeople` attribute on a form with the following pre and post
     {% assign group = Workflow | Attribute:'Group','Object' %}
     {% assign members = group.Members | OrderBy:'Person.NickName,Person.LastName' %}
     {% for member in members %}
-        <div class="checkbox">
-            <label class="checkbox-inline" for="{{ member.Id }}">
+        <div class="checkbox mx-4">
+            <label for="{{ member.Id }}">
                 <input id="{{ member.Id }}" type="checkbox" name="{{ member.Id }}" value="{{ member.Person.PrimaryAlias.Guid }}">
                 <span class="label-text">
                     <img src="{{ member.Person.PhotoUrl }}&w=80" style="width:80px;border-radius:100%;" />
