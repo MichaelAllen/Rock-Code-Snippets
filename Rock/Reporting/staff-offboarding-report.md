@@ -4,7 +4,7 @@ tags:
     - language/lava
     - type/reporting
 date created: 2022-07-29 10:25:44
-date modified: 2022-07-29 13:45:05
+date modified: 2022-07-29 14:50:45
 ---
 
 # Staff Off-Boarding Report
@@ -141,6 +141,7 @@ SELECT
     ,co.[ConnectionTypeId]
     ,co.[Name]
     ,c.[Name] 'CampusName'
+    ,co.[IsActive]
 FROM
     [ConnectionOpportunity] co 
     INNER JOIN [ConnectionOpportunityCampus] coc ON co.[Id] = coc.[ConnectionOpportunityId]
@@ -472,7 +473,7 @@ WHERE
             <div class="col-md-4">
                 {[ panel title:'Default Connector' ]}
                 {% for row in table5.rows %}
-                    <b><a href="/page/411?ConnectionOpportunityId={{ row.Id }}&ConnectionTypeId={{ row.ConnectionTypeId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }} | {{ row.CampusName }}</b><br>
+                    <b {% if row.IsActive != true or row.IsArchived != false %}style="color:Lightgrey;"{% endif %}><a href="/page/411?ConnectionOpportunityId={{ row.Id }}&ConnectionTypeId={{ row.ConnectionTypeId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }} | {{ row.CampusName }}</b><br>
                 {% endfor %}
                 {[ endpanel ]}
             </div>
