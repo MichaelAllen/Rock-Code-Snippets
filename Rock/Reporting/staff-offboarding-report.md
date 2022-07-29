@@ -1,14 +1,15 @@
 ---
 tags:
     - language/sql
+    - language/lava
     - type/reporting
 date created: 2022-07-29 10:25:44
-date modified: 2022-07-29 10:44:05
+date modified: 2022-07-29 13:45:05
 ---
 
 # Staff Off-Boarding Report
 
-This is a fairly complicated report that attempts to show everything that you would need to change when someone transitions off of your staff team.
+This is a fairly complicated report that attempts to show everything that you would need to change when someone transitions off of your staff team. It also, when possible, provides links to the edit pages of the various things that need to be changed.
 
 It looks in the following places:
 
@@ -96,7 +97,7 @@ WHERE
 ORDER BY g.[Name]
 ;
 
--- 3. Connector Groups | The person is in a connector group and could be assigned
+-- 3. Connector Groups
 SELECT
     g.[Id]
     ,g.[Name] 'Group'
@@ -427,7 +428,7 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 3 - Connector Groups | The person is in a connector group and could be assigned {% endcomment %}
+    {% comment %} SQL Table 3 - Connector Groups {% endcomment %}
         {% assign results = table3.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
@@ -456,11 +457,11 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 5 - Connection Opportunity Default | The person is the default connector for a connection {% endcomment %}
+    {% comment %} SQL Table 5 - Connection Opportunity Default Connector %}
         {% assign results = table5.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Connection Opportunity Default' ]}
+                {[ panel title:'Connection Opportunity Default Connector' ]}
                 {% for row in table5.rows %}
                     <b><a href="/page/411?ConnectionOpportunityId={{ row.Id }}&ConnectionTypeId={{ row.ConnectionTypeId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }} | {{ row.CampusName }}</b><br>
                 {% endfor %}
@@ -468,7 +469,7 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 6 - Active Connections | The person has active connections. They should be re-assigned to other people. {% endcomment %}
+    {% comment %} SQL Table 6 - Active Connections {% endcomment %}
         {% assign results = table6.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
@@ -480,7 +481,7 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 7 - Event Contact | This person is an event contact and may be displayed on the website as such. {% endcomment %}
+    {% comment %} SQL Table 7 - Event Contact %}
         {% assign results = table7.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
@@ -492,7 +493,7 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 8 - Registration Contact | This person is a registration contact and may be contacted about registrations. {% endcomment %}
+    {% comment %} SQL Table 8 - Registration Contact {% endcomment %}
         {% assign results = table8.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
@@ -521,7 +522,7 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 10 - Miscellaneous Authorizations | Various permissions throughout Rock. As I have identified the type of Entity I have joined in the entity table to get enough details to be able to remove the person's permissions {% endcomment %}
+    {% comment %} SQL Table 10 - Miscellaneous Authorizations {% endcomment %}
         {% assign results = table10.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
@@ -530,27 +531,27 @@ WHERE
                     {% case row.EntityType %}
                     {% when '2' %}
                         <b><a href="/page/103?Page={{ row.EntityId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.PageName }} ({{row.EntityName}})</b><br>
-                    {% when '16' %}
-                        <b><a href="/page/113?GroupId={{ row.EntityId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.GroupName }} ({{row.EntityName}})</b><br>
-                    {% when '234' %}
-                        <b><a href="/RegistrationInstance/{{ row.EntityId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.RegName }} ({{row.EntityName}})</b><br>
-                    {% when '34' %}
-                        <b><a href="/page/145?DataViewId={{ row.EntityId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Dataview }} ({{row.EntityName}})</b><br>
-                    {% when '107' %}
-                        <b><a href="/page/149?ReportId={{ row.EntityId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Report }} ({{row.EntityName}})</b><br>
                     {% when '9' %}
                         <b><a href="/page/103?Page={{ row.PageId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Block }} ({{row.EntityName}})</b><br>
+                    {% when '16' %}
+                        <b><a href="/page/113?GroupId={{ row.EntityId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.GroupName }} ({{row.EntityName}})</b><br>
+                    {% when '34' %}
+                        <b><a href="/page/145?DataViewId={{ row.EntityId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Dataview }} ({{row.EntityName}})</b><br>
                     {% when '54' %}
                         <b><a href="/Schedules?ScheduleId={{ row.EntityId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Schedule }} ({{row.EntityName}})</b><br>
+                    {% when '107' %}
+                        <b><a href="/page/149?ReportId={{ row.EntityId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Report }} ({{row.EntityName}})</b><br>
+                    {% when '234' %}
+                        <b><a href="/RegistrationInstance/{{ row.EntityId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.RegName }} ({{row.EntityName}})</b><br>
                     {% else %}
-                        <b>{{ row.EntityName }}({{ row.EntityType }}) | Id:{{ row.EntityId }}</b><br>
+                        <b>{{ row.EntityName }} ({{ row.EntityType }}) | Id:{{ row.EntityId }}</b><br>
                     {% endcase %}
                 {% endfor %}
                 {[ endpanel ]}
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 11 - SMS From Values | This person is attached to SMS numbers that may receive SMS messages. {% endcomment %}
+    {% comment %} SQL Table 11 - SMS From Values {% endcomment %}
         {% assign results = table11.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
@@ -562,7 +563,7 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 12 - Room Reservations | Used with the Room Reservation Plugin to identify people who have reserved rooms {% endcomment %}
+    {% comment %} SQL Table 12 - Room Reservations {% endcomment %}
         {% assign results = table12.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
