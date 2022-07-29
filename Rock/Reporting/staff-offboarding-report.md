@@ -4,7 +4,7 @@ tags:
     - language/lava
     - type/reporting
 date created: 2022-07-29 10:25:44
-date modified: 2022-07-29 14:50:45
+date modified: 2022-07-29 14:50:47
 ---
 
 # Staff Off-Boarding Report
@@ -344,7 +344,9 @@ FROM
     INNER JOIN [WorkflowActivity] wa ON wa.[WorkflowId] = w.[Id]
     INNER JOIN [WorkflowActivityType] wat ON wa.[ActivityTypeId] = wat.[Id]
     INNER JOIN #PersonAliasIds pa ON pa.[Id] = wa.[AssignedPersonAliasId]
-WHERE w.[CompletedDateTime] IS NULL
+WHERE
+    w.[CompletedDateTime] IS NULL
+    AND wa.[CompletedDateTime] IS NULL
 ;
 
 -- 17. Assigned Projects
