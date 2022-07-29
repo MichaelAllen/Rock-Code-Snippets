@@ -22,12 +22,12 @@ It looks in the following places:
 7. Active Event Contact
 8. Active Registration Contact
 9. Org Chart Group Membership
-10. Misc Security Authorizations
+10. Miscellaneous Security Authorizations
 11. SMS From Values
 12. Room Reservations (Admin contact or Event contact)
 13. Service Job Notifications
-14. Communication Templates (From or CC/BCC)
-15. System Communications (From or CC/BCC)
+14. Communication Templates (From/CC/BCC)
+15. System Communications (From/CC/BCC)
 16. Assigned Workflows
 17. Assigned Projects
 18. Assigned Project Tasks
@@ -57,9 +57,9 @@ DECLARE @PersonId int = ( SELECT [PersonId] FROM [PersonAlias] WHERE [Guid] = CA
 SELECT pa.[Id] INTO #PersonAliasIds FROM [PersonAlias] pa WHERE pa.[PersonId] = @PersonId;
 
 -- Get their email
-DECLARE @PersonEmail varchar(max) = ( SELECT [Email] FROM [Person] WHERE [Id] = @PersonId );
+DECLARE @PersonEmail varchar(max) = ( SELECT NULLIF( [Email], '' ) FROM [Person] WHERE [Id] = @PersonId );
 
--- 1. Security Groups
+-- 1. Security Group Membership
 SELECT
     g.[Id]
     ,g.[Name] 'Group'
@@ -78,7 +78,7 @@ WHERE
 ORDER BY g.[Name]
 ;
 
--- 2. Approval Groups | Used for Room Reservation Plugin
+-- 2. Room Reservation Approval Groups
 SELECT
     g.[Id]
     ,g.[Name] 'Group'
@@ -97,7 +97,7 @@ WHERE
 ORDER BY g.[Name]
 ;
 
--- 3. Connector Groups
+-- 3. Connector Group Memberships
 SELECT
     g.[Id]
     ,g.[Name] 'Group'
@@ -116,8 +116,7 @@ WHERE
 ORDER BY g.[Name]
 ;
 
-
--- 4. Group Leadership
+-- 4. Group Leadership (All Group Types)
 SELECT
     g.[Id]
     ,g.[Name] 'Group'
@@ -197,7 +196,7 @@ WHERE
     AND ri.[EndDateTime] > GETDATE()
 ;
 
--- 9. Org Chart
+-- 9. Org Chart Group Membership
 SELECT
     g.[Id]
     ,g.[Name] 'Group'
@@ -275,7 +274,7 @@ WHERE [DefinedTypeId] = 32
 ;
 
 
--- 12. Room Reservations
+-- 12. Room Reservations (Admin contact or Event contact)
 SELECT
     r.[Id]
     ,r.[Name]
@@ -296,30 +295,40 @@ SELECT
     ,j.[Name]
     ,j.[Class]
 FROM [ServiceJob] j
-WHERE j.[NotificationEmails] LIKE '%' + @PersonEmail + '%'
+WHERE
+    @PersonEmail IS NOT NULL
+    AND j.[NotificationEmails] LIKE '%' + @PersonEmail + '%'
 ;
 
--- 14. Communication Teplates
+-- 14. Communication Templates (From/CC/BCC)
 SELECT 
     ct.[Id]
     ,ct.[Name]
+    ,ct.[IsActive]
 FROM [CommunicationTemplate] ct
 WHERE
-    ct.[FromEmail] LIKE '%' + @PersonEmail + '%'
-    OR ct.[CCEmails] LIKE '%' + @PersonEmail + '%'
-    OR ct.[BCCEmails] LIKE '%' + @PersonEmail + '%'
+    @PersonEmail IS NOT NULL
+    AND (
+        ct.[FromEmail] LIKE '%' + @PersonEmail + '%'
+        OR ct.[CCEmails] LIKE '%' + @PersonEmail + '%'
+        OR ct.[BCCEmails] LIKE '%' + @PersonEmail + '%'
+    )
 ;
 
--- 15. System Communications
+-- 15. System Communications (From/CC/BCC)
 SELECT 
     sc.[Id]
     ,sc.[Title]
+    ,sc.[IsActive]
 FROM [SystemCommunication] sc
 WHERE
-    sc.[From] LIKE '%' + @PersonEmail + '%'
-    OR sc.[To] LIKE '%' + @PersonEmail + '%'
-    OR sc.[CC] LIKE '%' + @PersonEmail + '%'
-    OR sc.[BCC] LIKE '%' + @PersonEmail + '%'
+    @PersonEmail IS NOT NULL
+    AND (
+        sc.[From] LIKE '%' + @PersonEmail + '%'
+        OR sc.[To] LIKE '%' + @PersonEmail + '%'
+        OR sc.[CC] LIKE '%' + @PersonEmail + '%'
+        OR sc.[BCC] LIKE '%' + @PersonEmail + '%'
+    )
 ;
 
 -- 16. Assigned Workflows
@@ -337,7 +346,7 @@ FROM
 WHERE w.[CompletedDateTime] IS NULL
 ;
 
--- 17. Projects
+-- 17. Assigned Projects
 SELECT
     j.[Id]
     ,j.[Name]
@@ -348,7 +357,7 @@ FROM
 WHERE j.[IsActive] = 1
 ;
 
--- 18. Project Tasks
+-- 18. Assigned Project Tasks
 SELECT
     t.[Name]
     ,j.[Id] 'ProjectId'
@@ -362,7 +371,7 @@ WHERE
     AND j.[IsActive] = 1
 ;
 
--- 19. Project Watching
+-- 19. Watching Projects
 SELECT
     j.[Id]
     ,j.[Name]
@@ -384,7 +393,7 @@ WHERE
     {% assign Person2 = 'Global' | PageParameter:'Person' | PersonByAliasGuid %}
 
     <h2>{{Person2.FullName}}</h2>
-    {%if Person2.Email contains '@valorouschurch.com' %}
+    {% if Person2.Email contains '@valorouschurch.com' %}
         <h3>
             <a href="/Person/{{ Person2.Id}}" class="btn btn-default"><i class="fa fa-pencil"></i></a>
             Email: {{Person2.Email }}
@@ -394,11 +403,11 @@ WHERE
     <br>
     <div class="row">
 
-    {% comment %} SQL Table 1 - Security Groups {% endcomment %}
+    {% comment %} SQL Table 1 - Security Group Membership {% endcomment %}
         {% assign results = table1.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Security Groups' ]}
+                {[ panel title:'Security Group Membership' ]}
                 {% for row in table1.rows %}
                     {% if row.SyncDataViewId <> '' and row.SyncDataViewId %}
                         {% capture editurl %}/page/145?DataViewId={{ row.SyncDataViewId }}{% endcapture %}
@@ -411,11 +420,11 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 2 - Approval Groups | Used for Room Reservation Plugin {% endcomment %}
+    {% comment %} SQL Table 2 - Room Reservation Approval Groups {% endcomment %}
         {% assign results = table2.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Approval Groups']}
+                {[ panel title:'Room Reservation Approval Groups']}
                 {% for row in table2.rows %}
                     {% if row.SyncDataViewId <> '' and row.SyncDataViewId %}
                         {% capture editurl %}/page/145?DataViewId={{ row.SyncDataViewId }}{% endcapture %}
@@ -428,11 +437,11 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 3 - Connector Groups {% endcomment %}
+    {% comment %} SQL Table 3 - Connector Group Memberships {% endcomment %}
         {% assign results = table3.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Connector Groups']}
+                {[ panel title:'Connector Group Memberships']}
                 {% for row in table3.rows %}
                     {% if row.SyncDataViewId <> '' and row.SyncDataViewId %}
                         {% capture editurl %}/page/145?DataViewId={{ row.SyncDataViewId }}{% endcapture %}
@@ -457,11 +466,11 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 5 - Connection Opportunity Default Connector %}
+    {% comment %} SQL Table 5 - Default Connector {% endcomment %}
         {% assign results = table5.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Connection Opportunity Default Connector' ]}
+                {[ panel title:'Default Connector' ]}
                 {% for row in table5.rows %}
                     <b><a href="/page/411?ConnectionOpportunityId={{ row.Id }}&ConnectionTypeId={{ row.ConnectionTypeId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }} | {{ row.CampusName }}</b><br>
                 {% endfor %}
@@ -481,11 +490,11 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 7 - Event Contact %}
+    {% comment %} SQL Table 7 - Active Event Contact {% endcomment %}
         {% assign results = table7.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Event Contact' ]}
+                {[ panel title:'Active Event Contact' ]}
                 {% for row in table7.rows %}
                     <b><a href="/page/402?EventItemOccurrenceId={{ row.Id }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }}</b><br>
                 {% endfor %}
@@ -493,11 +502,11 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 8 - Registration Contact {% endcomment %}
+    {% comment %} SQL Table 8 - Active Registration Contact {% endcomment %}
         {% assign results = table8.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Registration Contact' ]}
+                {[ panel title:'Active Registration Contact' ]}
                 {% for row in table8.rows %}
                     <b><a href="/RegistrationInstance/{{ row.Id }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }}</b><br>
                 {% endfor %}
@@ -505,11 +514,11 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 9 - Orgranization Groups {% endcomment %}
+    {% comment %} SQL Table 9 - Org Chart Group Membership {% endcomment %}
         {% assign results = table9.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Org Chart' ]}
+                {[ panel title:'Org Chart Group Membership' ]}
                 {% for row in table9.rows %}
                     {% if row.SyncDataViewId <> '' and row.SyncDataViewId %}
                         {% capture editurl %}/page/145?DataViewId={{ row.SyncDataViewId }}{% endcapture %}
@@ -522,7 +531,7 @@ WHERE
             </div>
         {% endif %}
 
-    {% comment %} SQL Table 10 - Miscellaneous Authorizations {% endcomment %}
+    {% comment %} SQL Table 10 - Miscellaneous Security Authorizations {% endcomment %}
         {% assign results = table10.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
@@ -574,7 +583,7 @@ WHERE
                 {[ endpanel ]}
             </div>
         {% endif %}
-        
+
     {% comment %} SQL Table 13 - Service Job Notifications {% endcomment %}
         {% assign results = table13.rows | Size %}
         {% if results != 0 %}
@@ -586,7 +595,7 @@ WHERE
                 {[ endpanel ]}
             </div>
         {% endif %}
-        
+
     {% comment %} SQL Table 14 - Communication Templates {% endcomment %}
         {% assign results = table14.rows | Size %}
         {% if results != 0 %}
@@ -610,7 +619,7 @@ WHERE
                 {[ endpanel ]}
             </div>
         {% endif %}
-        
+
     {% comment %} SQL Table 16 - Assigned Workflows {% endcomment %}
         {% assign results = table16.rows | Size %}
         {% if results != 0 %}
@@ -622,36 +631,36 @@ WHERE
                 {[ endpanel ]}
             </div>
         {% endif %}
-        
-    {% comment %} SQL Table 17 - Projects {% endcomment %}
+
+    {% comment %} SQL Table 17 - Assigned Projects {% endcomment %}
         {% assign results = table17.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Projects' ]}
+                {[ panel title:'Assigned Projects' ]}
                 {% for row in table17.rows %}
                     <b><a href="/project/{{ row.Id }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }}</b><br>
                 {% endfor %}
                 {[ endpanel ]}
             </div>
         {% endif %}
-        
-    {% comment %} SQL Table 18 - Project Tasks {% endcomment %}
+
+    {% comment %} SQL Table 18 - Assigned Project Tasks {% endcomment %}
         {% assign results = table18.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Project Tasks' ]}
+                {[ panel title:'Assigned Project Tasks' ]}
                 {% for row in table18.rows %}
                     <b><a href="/project/{{ row.ProjectId }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }} ({{ row.ProjectName }})</b><br>
                 {% endfor %}
                 {[ endpanel ]}
             </div>
         {% endif %}
-        
-    {% comment %} SQL Table 19 - Project Watching {% endcomment %}
+
+    {% comment %} SQL Table 19 - Watching Projects {% endcomment %}
         {% assign results = table19.rows | Size %}
         {% if results != 0 %}
             <div class="col-md-4">
-                {[ panel title:'Project Watching' ]}
+                {[ panel title:'Watching Projects' ]}
                 {% for row in table19.rows %}
                     <b><a href="/project/{{ row.Id }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }}</b><br>
                 {% endfor %}
