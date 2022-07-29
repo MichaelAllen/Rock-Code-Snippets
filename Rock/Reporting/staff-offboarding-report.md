@@ -559,6 +559,7 @@ WHERE
                         <b>{{ row.EntityName }} ({{ row.EntityType }}) | Id:{{ row.EntityId }}</b><br>
                     {% endcase %}
                 {% endfor %}
+                <hr><pre>DELETE FROM [Auth] WHERE [PersonAliasId] IN ( {{ Person2.Aliases | Select:'Id' | Join:', ' }} )</pre>
                 {[ endpanel ]}
             </div>
         {% endif %}
@@ -667,6 +668,7 @@ WHERE
                 {% for row in table19.rows %}
                     <b><a href="/project/{{ row.Id }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }}</b><br>
                 {% endfor %}
+                <hr><pre>DELETE FROM [_com_blueboxmoon_ProjectManagement_Watching] WHERE [PersonAliasId] IN ( {{ Person2.Aliases | Select:'Id' | Join:', ' }} )</pre>
                 {[ endpanel ]}
             </div>
         {% endif %}
