@@ -45,7 +45,7 @@ There are several "magic numbers" in these queries. You will want to check all o
 
 ### Parameters
 
-`Person='00000000-0000-0000-0000-000000000000'`
+`Person=00000000-0000-0000-0000-000000000000`
 
 ### Query
 
