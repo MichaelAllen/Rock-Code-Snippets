@@ -38,9 +38,9 @@ There are several "magic numbers" in these queries. You will want to check all o
 
 ## Page Parameter Filter Block
 
-| Field Type | Key    |
-| ---------- | ------ |
-| Person     | Person |
+| Field Type | Key    | Description                  |
+| ---------- | ------ | ---------------------------- |
+| Person     | Person | The person being off-boarded |
 
 ## Dynamic Data Block
 
