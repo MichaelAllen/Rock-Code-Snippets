@@ -4,7 +4,7 @@ tags:
     - language/lava
     - type/reporting
 date created: 2022-07-29 10:25:44
-date modified: 2022-08-02 12:48:17
+date modified: 2022-08-02 12:49:27
 ---
 
 # Staff Off-Boarding Report
@@ -34,7 +34,7 @@ It looks in the following places:
 19. Watching Projects
 20. Other staff that the person is "supervising" (Person Attribute used for workflow/request assignments)
 
-There are several "magic numbers" in these queries. You will want to check all of the Entity IDs and Page numbers against your own system and update as needed.
+There are several "magic numbers" in these queries. You will want to check all of the Entity IDs, Attribute IDs, and Page numbers against your own system and update as needed.
 
 ## Page Parameter Filter Block
 
@@ -54,8 +54,8 @@ There are several "magic numbers" in these queries. You will want to check all o
 -- Get their Person Id
 DECLARE @PersonId int = ( SELECT [PersonId] FROM [PersonAlias] WHERE [Guid] = CAST( @Person AS uniqueidentifier ) );
 
--- Get all of their PersonAlias IDs
-SELECT pa.[Id] INTO #PersonAliasIds FROM [PersonAlias] pa WHERE pa.[PersonId] = @PersonId;
+-- Get all of their PersonAlias IDs and GUIDs
+SELECT pa.[Id], pa.[Guid] INTO #PersonAliasIds FROM [PersonAlias] pa WHERE pa.[PersonId] = @PersonId;
 
 -- Get their email
 DECLARE @PersonEmail varchar(max) = ( SELECT NULLIF( [Email], '' ) FROM [Person] WHERE [Id] = @PersonId );
