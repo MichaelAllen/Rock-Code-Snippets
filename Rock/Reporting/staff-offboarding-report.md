@@ -4,7 +4,7 @@ tags:
     - language/lava
     - type/reporting
 date created: 2022-07-29 10:25:44
-date modified: 2022-07-29 14:50:47
+date modified: 2022-08-02 12:48:17
 ---
 
 # Staff Off-Boarding Report
@@ -32,6 +32,7 @@ It looks in the following places:
 17. Assigned Projects
 18. Assigned Project Tasks
 19. Watching Projects
+20. Other staff that the person is "supervising" (Person Attribute used for workflow/request assignments)
 
 There are several "magic numbers" in these queries. You will want to check all of the Entity IDs and Page numbers against your own system and update as needed.
 
