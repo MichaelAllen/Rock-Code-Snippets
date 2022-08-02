@@ -386,6 +386,20 @@ WHERE
     j.[IsActive] = 1
     AND jw.[IsWatching] = 1
 ;
+
+-- 20. Supervised Staff
+SELECT
+    p.[Id]
+    ,CONCAT_WS( ' ', p.[NickName], p.[LastName] ) 'Name'
+FROM
+    [AttributeValue] av
+    INNER JOIN #PersonAliasIds pa ON
+        av.[Value] <> ''
+        AND av.[Value] = pa.[Guid]
+    INNER JOIN [Person] p ON av.[EntityId] = p.[Id]
+WHERE
+    av.[AttributeId] = 9768 -- HR > Supervisor
+;
 ```
 
 ### Display Lava
@@ -669,6 +683,18 @@ WHERE
                     <b><a href="/project/{{ row.Id }}" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }}</b><br>
                 {% endfor %}
                 <hr><pre>DELETE FROM [_com_blueboxmoon_ProjectManagement_Watching] WHERE [PersonAliasId] IN ( {{ Person2.Aliases | Select:'Id' | Join:', ' }} )</pre>
+                {[ endpanel ]}
+            </div>
+        {% endif %}
+        
+    {% comment %} SQL Table 20 - Supervised Staff {% endcomment %}
+        {% assign results = table20.rows | Size %}
+        {% if results != 0 %}
+            <div class="col-md-4">
+                {[ panel title:'Supervised Staff' ]}
+                {% for row in table20.rows %}
+                    <b><a href="/person/{{ row.Id }}/HR" class="btn-xs btn-default"><i class="fa fa-pencil"></i></a> {{ row.Name }}</b><br>
+                {% endfor %}
                 {[ endpanel ]}
             </div>
         {% endif %}
