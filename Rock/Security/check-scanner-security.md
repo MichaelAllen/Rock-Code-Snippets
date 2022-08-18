@@ -3,7 +3,7 @@ tags:
     - type/utility
     - topic/finance
 date created: 2022-08-18 18:53:54
-date modified: 2022-08-18 19:17:22
+date modified: 2022-08-18 19:30:08
 ---
 
 # Security Permissions For Check Scanner App
@@ -38,11 +38,11 @@ We created a role `APP - Check Scanner` with this narrow scope of permissions so
 | FinancialTransactionDetails | PUT    | api/FinancialTransactionDetails/{0}           | VIEW, EDIT |
 | FinancialTransactionImages  | GET    | api/FinancialTransactionImages                | VIEW       |
 | FinancialTransactionImages  | POST   | api/FinancialTransactionImages                | VIEW, EDIT |
-| FinancialTransactionImages  | DELETE | api/FinancialTransactionImages/{0}            | VIEW, EDIT |
-| FinancialTransactionImages  | GET    | api/FinancialTransactionImages                | VIEW       |
-| FinancialTransactionImages  | POST   | api/FinancialTransactionImages                | VIEW, EDIT |
-| FinancialTransactionImages  | POST   | api/FinancialTransactionImages/AlreadyScanned | VIEW, EDIT |
-| FinancialTransactionImages  | POST   | api/FinancialTransactionImages/PostScanned    | VIEW, EDIT |
+| FinancialTransactions       | DELETE | api/FinancialTransactions/{0}                 | VIEW, EDIT |
+| FinancialTransactions       | GET    | api/FinancialTransactions                     | VIEW       |
+| FinancialTransactions       | POST   | api/FinancialTransactions                     | VIEW, EDIT |
+| FinancialTransactions       | POST   | api/FinancialTransactions/AlreadyScanned      | VIEW, EDIT |
+| FinancialTransactions       | POST   | api/FinancialTransactions/PostScanned         | VIEW, EDIT |
 | People                      | GET    | api/People/GetByPersonAliasIs/{personAliasId} | VIEW       |
 | People                      | GET    | api/People/GetByUsername/{username}           | VIEW       |
 
