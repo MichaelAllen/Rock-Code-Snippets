@@ -3,38 +3,37 @@ tags:
     - language/sql
     - type/reporting
 date created: 2021-12-08 10:41:57
-date modified: 2022-01-01 21:48:05
+date modified: 2023-03-08 10:54:19
 ---
 
-# Giving Totals Per Person & Account in Date Range
+# Giving Totals Per Unit & Account in Date Range
 
-Lists everyone that gave in a specified date range (Sunday Dates), and how much they gave to each account.
+Lists every giving unit that gave in a specified date range (Sunday Dates), and how much was given to each account.
 
-1 Row per person, with a column per account
+1 Row per giving unit, with a column per account
 
 ## Query
 
 ```sql
-DECLARE @StartDate date = '2020-12-01';
-DECLARE @EndDate date = '2021-11-30';
+DECLARE @StartDate date = '2022-01-01';
+DECLARE @EndDate date = '2022-12-31';
 
-IF OBJECT_ID('#TempData', 'U') IS NOT NULL DROP TABLE #TempData;
+DROP TABLE IF EXISTS #TempData;
+
 CREATE TABLE #TempData(
-    [PersonId] int
+    [GivingId] varchar(30)
     ,[Name] varchar(max)
     ,[Account] varchar(max)
     ,[Ammount] decimal
 );
 
 INSERT INTO #TempData(
-    [PersonId]
-    ,[Name]
+    [GivingId]
     ,[Account]
     ,[Ammount]
 )
 SELECT
-    pa.[PersonId]
-    ,CONCAT_WS( ', ', p.[LastName], p.[FirstName] )
+    p.[GivingId]
     ,fa.[Name]
     ,ftd.[Amount]
 FROM
@@ -57,8 +56,8 @@ SELECT @DynamicCol = STUFF( (
 
 SET @Sql = '
 SELECT
-    [PersonId]
-    --,[Name]
+    [GivingId]
+    ,dbo.ufnCrm_GetFamilyTitleFromGivingId( [GivingId] ) AS [Name]
     ,'+@DynamicCol+'
 FROM (   
     SELECT * FROM #TempData
