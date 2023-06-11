@@ -6,7 +6,7 @@ tags:
     - topic/expression
     - topic/person-alias
 date created: 2021-05-04 16:15:05
-date modified: 2022-01-04 09:49:03
+date modified: 2023-06-11 19:23:11
 ---
 
 # Person Aliases in Entity Commands
@@ -31,7 +31,7 @@ _Because of the way conditionals are interpreted in entity commands, you will ne
 
 ## Option 2 - Expression Parameter
 
-This is a new option I recently found out about. It makes things like this much easier, but may have slightly slower performance.
+This is a new option I recently found out about. It makes things like this much easier, but requires the fluid lava engine.
 
 ```liquid
 {% step where:'StepTypeId == "6" || StepTypeId == "8"' expression:'PersonAlias.PersonId == {{ person.Id }}' %}
