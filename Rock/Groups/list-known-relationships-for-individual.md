@@ -1,10 +1,11 @@
 ---
 tags:
     - language/sql
+    - language/lava
     - type/reporting
     - topic/known-relationship
 date created: 2020-12-04 23:24:00
-date modified: 2022-01-04 10:11:30
+date modified: 2024-01-02 21:56:51
 ---
 
 # List Known Relationships for Individual
@@ -37,4 +38,15 @@ WHERE
     g.Id = @KnownRelationshipGroupId
     AND gm.GroupRoleId <> @OwnerRoleId
 ORDER BY 'Role', 'Person'
+```
+
+## Lava Alternative
+
+```liquid
+{% assign personKrGroup = Person | Groups:11 | Where:'GroupRoleId','5' | Select:'GroupId' | First | GroupById %}
+<ul>
+    {% for member in personKrGroup.Members %}
+        <li>{{ member.Person.FullName }} - {{ member.GroupRole.Name }}</li>
+    {% endfor %}
+</ul>
 ```
