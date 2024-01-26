@@ -3,7 +3,7 @@ tags:
     - language/js
     - type/utility
 date created: 2024-01-25 20:04:07
-date modified: 2024-01-25 20:24:18
+date modified: 2024-01-25 20:38:53
 ---
 
 # Obsidian Mutation Observer
@@ -36,6 +36,8 @@ $(function() {
 ```
 
 ## Example 2 - Add "Gross, Fee, Net" Table to Batch Detail Screen
+
+I want to add a summary table to the batch detail page that shows me the Gross, Fee, and Net for each account in the batch.
 
 ```liquid
 {% capture CustomDetails %}
