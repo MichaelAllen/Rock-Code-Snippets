@@ -3,7 +3,7 @@ tags:
     - language/sql
     - type/cleanup
 date created: 2024-01-25 18:04:56
-date modified: 2024-01-25 20:02:13
+date modified: 2024-01-25 20:33:43
 ---
 
 # Delete Person Records
@@ -12,7 +12,7 @@ date modified: 2024-01-25 20:02:13
 
 Delete person records in bulk. Handles cleaning up date from all of the related tables.
 
-This is primarily used to cleanup after a bot attatck.
+This is primarily used to cleanup after a bot attack.
 
 > [!Danger]
 > This will **permanently delete** data from Rock. Do not run this unless you are 100% confident that the SELECT statement is correct and you have made a backup.
