@@ -2,8 +2,9 @@
 tags:
     - type/utility
     - topic/finance
+    - topic/security
 date created: 2022-08-18 18:53:54
-date modified: 2022-08-18 19:30:08
+date modified: 2025-11-23 18:17:59
 ---
 
 # Security Permissions For Check Scanner App
@@ -11,8 +12,6 @@ date modified: 2022-08-18 19:30:08
 We needed a way to give permissions for someone to use the check scanner but didn't want to give them access to the Rock site. The settings below are the absolute minimum permissions needed for the check scanner app to work fully.
 
 We created a role `APP - Check Scanner` with this narrow scope of permissions so that we can easily assign it to any user that needs access to the scanner app. This role provides all of the needed permissions and doesn't require the user to have any other roles (`RSR - Staff Workers`, `RSR - Finance Worker`, etc.)
-
-  
 
 ## REST Controllers
 
